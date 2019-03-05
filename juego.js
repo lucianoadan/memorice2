@@ -153,7 +153,7 @@ function colorCambio (posicion, color, contenido) {
 */
 
 function comprobar () {
-  var aciertos = pares.size * 2;
+  var aciertos = pares.size;
   return (aciertos == celdas);
 }
 
