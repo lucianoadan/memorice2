@@ -10,12 +10,17 @@ var jugada1 = "";
 var jugada2 = "";
 var identificadorJ1 = "";
 var identificadorJ2 = "";
+var pares = null;
 var jugando = false; //
 var celdas = filas * columnas;
+
+
 
 function iniciarJuego () {	
   var dato = document.getElementById("juego");
   dato.style.opacity = 1;
+
+  pares = new Set([]);
 
   cartas = new Array( 
   {nombre: '1', seleccion: false}, {nombre: '2', seleccion: false}, 
@@ -58,12 +63,19 @@ function girarCarta () {
   jugada2 = evento.target.dataset.valor;
   identificadorJ2 = evento.target.id;
 
+  if(pares.has(identificadorJ2))
+    return;
+
   if ( jugada1 !== "" ) {
 
     if ( jugada1 === jugada2 && identificadorJ1 !== identificadorJ2 && cartas[parseInt(identificadorJ2)].seleccion != true &&  cartas[parseInt(identificadorJ1)].seleccion != true) {
       
       cartas[parseInt(identificadorJ1)].seleccion = true;
       cartas[parseInt(identificadorJ2)].seleccion = true;
+
+      // control de pares
+      pares.add(identificadorJ1);
+      pares.add(identificadorJ2);
 
       //colorCambio(identificadorJ2, "blue", jugada2);
       descubrir(identificadorJ2);
