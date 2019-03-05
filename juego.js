@@ -105,8 +105,9 @@ function girarCarta () {
       descubrir(identificadorJ2);
       vaciar();
      
-      if(comprobar ()){
+      if(comprobar()){
         document.getElementById("juego").innerHTML = "GANASTE";
+        console.log('Ganaste');
         off();
       }
 
@@ -153,8 +154,8 @@ function colorCambio (posicion, color, contenido) {
 */
 
 function comprobar () {
-  var aciertos = pares.size;
-  return (aciertos == celdas);
+  //console.log('Aciertos: '+pares.size);
+  return (pares.size == celdas);
 }
 
 function resetearJuego () {
@@ -221,9 +222,11 @@ function tapar(id){
 }
 
 function on(){
+  console.log('Jugando...');
   jugando = true;
 }
 
 function off(){
+  console.log('Juego parado -------------------');
   jugando = false;
 }
