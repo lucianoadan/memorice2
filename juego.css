@@ -24,6 +24,12 @@ td {
 	font-style: italic;
 }
 
+.carta {
+	width: 200px;
+	height: 100px;
+	padding: 0px 10px 0px 10px black;
+}
+
 input {
 	width: 90px;
 	height: 30px;
