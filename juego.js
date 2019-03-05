@@ -1,3 +1,15 @@
+
+/*
+
+  El programa parece funcionar bien (el reset no se arregló aún) pero a una velocidad
+  "normal" y si se hacen clicks de forma apresurada... se descontrola.
+
+  Podría arreglarlo pero siempre la solución que encuentro es re-estructurar el código.
+
+  Antes no pasaba y ahora si? claro... pero renderizar imágenes consume tiempo de CPU
+
+ */
+
 // filas * cols debe ser par
 const filas = 4;
 const columnas = 4;
@@ -58,12 +70,20 @@ function girarCarta () {
   if (!jugando)
       return;
 
-  var evento = window.event;
+  var target = null;
 
-  jugada2 = evento.target.dataset.valor;
-  identificadorJ2 = evento.target.id;
+  if(window.event.path[0].localName == 'td'){
+    var id_imagen = window.event.target.firstChild.id;
+    var target =  document.getElementById(id_imagen);
+  }else{
+    var evento = window.event;
+    target = evento.target;
+  }
 
-  if(pares.has(identificadorJ2))
+  jugada2 = target.dataset.valor;
+  identificadorJ2 = target.id;
+
+  if(typeof identificadorJ2 == undefined || identificadorJ2 == null || pares.has(identificadorJ2))
     return;
 
   if ( jugada1 !== "" ) {
@@ -89,7 +109,7 @@ function girarCarta () {
         tapar(self.identificadorJ1);
         tapar(self.identificadorJ2);
         vaciar()
-      },200); 
+      },800); 
 
       //colorCambio(identificadorJ2, "blue", jugada2);
       descubrir(identificadorJ2);
@@ -182,14 +202,20 @@ function cargarImagenes(){
 
 // descubre ficha, mostrando imagen
 function descubrir(id){
-  console.log('Descubro: '+id);
+    if(id == null)
+      return;
+
+  console.log(id);
   document.getElementById(id.toString()).src = base_url + "imagenes/autos/" + cartas[id].imagen;
 }
 
 // tapa la ficha, colocando el '?'
 function tapar(id){
-  console.log('Tapando.. '+id);
-  document.getElementById(id.toString()).src = base_url + "imagenes/q0.jpeg";
+  if(id == null)
+    return;
+
+  console.log(id);
+  document.getElementById(id.toString()).src = base_url + "imagenes/q1.jpg";
 }
 
 function on(){

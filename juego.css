@@ -15,6 +15,7 @@ td {
 	background-color: black;
 	border: 3px solid black;
 	border-radius: 5px;
+	background: #000;
 }
 
 .letra {
@@ -25,8 +26,8 @@ td {
 }
 
 .carta {
-	width: 200px;
-	height: 100px;
+	width: 100%;
+	height: auto;
 	padding: 0px 10px 0px 10px black;
 }
 
