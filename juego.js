@@ -13,7 +13,9 @@
 // filas * cols debe ser par
 const filas = 4;
 const columnas = 4;
+const responsividad = 450; // milisegundos
 const base_url = 'http://localhost/memorice2/';
+
 
 var cartas = [];
 
@@ -70,6 +72,8 @@ function girarCarta () {
   if (!jugando)
       return;
 
+  off();  
+
   var target = null;
 
   if(window.event.path[0].localName == 'td'){
@@ -100,7 +104,12 @@ function girarCarta () {
       //colorCambio(identificadorJ2, "blue", jugada2);
       descubrir(identificadorJ2);
       vaciar();
-      comprobar();
+     
+      if(comprobar ()){
+        document.getElementById("juego").innerHTML = "GANASTE";
+        off();
+      }
+
     }else if(identificadorJ1 !== identificadorJ2){
       var self = this;
       setTimeout(function(){
@@ -122,6 +131,8 @@ function girarCarta () {
     jugada1 = jugada2;
     identificadorJ1 = identificadorJ2;
   }
+
+  setTimeout(()=>{on();},responsividad);
 };
 
 function vaciar ()  {
@@ -142,17 +153,8 @@ function colorCambio (posicion, color, contenido) {
 */
 
 function comprobar () {
-  var aciertos = 0;
-  for( var i = 0 ; i < celdas ; i++ ){
-    if ( cartas[i].seleccion == true ) {
-      aciertos ++;
-    }
-
-  }
-
-  if(aciertos == celdas){
-    document.getElementById("juego").innerHTML = "GANASTE";
-  }
+  var aciertos = pares.size * 2;
+  return (aciertos == celdas);
 }
 
 function resetearJuego () {
